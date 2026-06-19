@@ -6,30 +6,23 @@ using System.Threading.Tasks;
 
 namespace ZirconiaStock
 {
-    public class DiscoZirconia
+    public class DiscoZirconia : Producto
     {
-        public int Id { get; set; }
-        public string Color { get; set; }
+        public string Tipo { get; set; }    // MONO-LAYER, 4D-PRO, STML
+        public int Tamano { get; set; }      // 14, 16, 18, 20, 22 
+        public string Color { get; set; }    // HT, A1, A2, A3
 
-        public int Grosor { get; set; }
-        public string Tipo { get; set; }
+        public DiscoZirconia() { }
 
-        public int Cantidad { get; set; }
-
-        public DiscoZirconia(int id, string color, int grosor, string tipo, int cantidad)
+        public DiscoZirconia(int id, string nombre, string tipo, int tamano, string color, int cantidad, int stockMinimo)
         {
             Id = id;
-
-            Color = color;
-
-            Grosor = grosor;
-
+            Nombre = nombre;
             Tipo = tipo;
-
+            Tamano = tamano;
+            Color = color;
             Cantidad = cantidad;
+            StockMinimo = stockMinimo;
         }
-
     }
-
 }
- //estoy probando el repositorio
