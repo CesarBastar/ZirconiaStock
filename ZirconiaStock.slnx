@@ -1,3 +1,9 @@
 <Solution>
-  <Project Path="ZirconiaStock/ZirconiaStock.csproj" Id="9dd29861-17e6-458d-b338-72d9e77b638a" />
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="ZirconiaStock/ZirconiaStock.csproj" Id="9dd29861-17e6-458d-b338-72d9e77b638a">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
 </Solution>
