@@ -20,6 +20,9 @@ namespace ZirconiaStock
 
             inventario = new Inventario();
             dgvZirconia.DataSource = inventario.ObtenerZirconia();
+            dgvZirconia.Columns["StockMinimo"].Visible = false;
+            dgvZirconia.Columns["Id"].DisplayIndex = 0;
+            dgvZirconia.Columns["Nombre"].DisplayIndex = 1;
         }
 
         private void dgvZirconia_CellContentClick(object sender, DataGridViewCellEventArgs e)

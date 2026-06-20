@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using SQLiteUtil;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
-using SQLiteUtil;
 
 namespace ZirconiaStock
 {
@@ -40,6 +41,20 @@ namespace ZirconiaStock
             }
             return discoZirconias;
         }
+         
+        public void AgregarZirconia(DiscoZirconia z)
+        {
+            string query = "INSERT INTO zirconia (nombre, tipo, tamaño, color, cantidad, stock_minimo) VALUES ($nombre, $tipo, $tamaño, $color, $cantidad, $stock_minimo)";
+            conn.ExecuteNonQuery(query,
+                ("$nombre", z.Nombre),
+                ("$tipo", z.Tipo),
+                ("$tamaño", z.Tamaño),
+                ("$color", z.Color),
+                ("$cantidad", z.Cantidad),
+                ("$stock_minimo", z.StockMinimo)
+                );
+        }
+   
     }
 
 }

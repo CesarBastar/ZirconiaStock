@@ -34,11 +34,12 @@
             // 
             // dgvZirconia
             // 
+            this.dgvZirconia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvZirconia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvZirconia.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvZirconia.Location = new System.Drawing.Point(0, 0);
+            this.dgvZirconia.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgvZirconia.Location = new System.Drawing.Point(0, 167);
             this.dgvZirconia.Name = "dgvZirconia";
-            this.dgvZirconia.Size = new System.Drawing.Size(1220, 797);
+            this.dgvZirconia.Size = new System.Drawing.Size(1220, 630);
             this.dgvZirconia.TabIndex = 0;
             this.dgvZirconia.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvZirconia_CellContentClick);
             // 
