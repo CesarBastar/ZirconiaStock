@@ -19,6 +19,15 @@ namespace ZirconiaStock
             InitializeComponent();
 
             inventario = new Inventario();
+           //dgvZirconia.DataSource = inventario.ObtenerZirconia();
+           //dgvZirconia.Columns["StockMinimo"].Visible = false;
+           //dgvZirconia.Columns["Id"].DisplayIndex = 0;
+           //dgvZirconia.Columns["Nombre"].DisplayIndex = 1;
+            RefrescarTabla();
+        }
+        private void RefrescarTabla()
+        {
+            dgvZirconia.DataSource = null;
             dgvZirconia.DataSource = inventario.ObtenerZirconia();
             dgvZirconia.Columns["StockMinimo"].Visible = false;
             dgvZirconia.Columns["Id"].DisplayIndex = 0;
@@ -27,6 +36,14 @@ namespace ZirconiaStock
 
         private void dgvZirconia_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            AgregarProducto r = new AgregarProducto(inventario);
+            r.ShowDialog();
+            RefrescarTabla();
 
         }
     }

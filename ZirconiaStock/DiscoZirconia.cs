@@ -8,9 +8,9 @@ namespace ZirconiaStock
 {
     public class DiscoZirconia : Producto
     {
-        public string Tipo { get; set; }    // MONO-LAYER, 4D-PRO, STML
-        public int Tamaño { get; set; }      // 14, 16, 18, 20, 22 
-        public string Color { get; set; }    // HT, A1, A2, A3
+        public string Tipo { get; set; }   
+        public int Tamaño { get; set; }      
+        public string Color { get; set; }    
 
         public DiscoZirconia() { }
 
