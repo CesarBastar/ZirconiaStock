@@ -78,8 +78,17 @@ namespace ZirconiaStock
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-         
-            this.Close();
+
+            DialogResult respuesta = MessageBox.Show(
+           "¿Estás seguro que quieres cancelar?",
+           "Confirmar",
+           MessageBoxButtons.YesNo,
+           MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
     }
 }
