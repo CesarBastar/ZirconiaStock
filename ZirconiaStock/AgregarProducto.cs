@@ -36,6 +36,9 @@ namespace ZirconiaStock
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            
+
+
             if (cmbNombre.Text == "")
             {
                 MessageBox.Show("Ingrese un nombre", "Status", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -69,7 +72,20 @@ namespace ZirconiaStock
 
             int cantidad = (int)nudCantidad.Value;
 
-            DiscoZirconia z = new DiscoZirconia(0, cmbNombre.Text, cmbTipo.Text, tamaño, cmbColor.Text, cantidad, 5);
+            bool existe = inventario.ObtenerZirconia().Any( d =>
+                  d.Nombre == cmbNombre.Text &&
+                  d.Tipo == cmbTipo.Text &&
+                  d.Tamaño == tamaño &&
+                  d.Color == cmbColor.Text);
+
+            if (existe)
+            {
+                MessageBox.Show("Ya existe un producto igual.", "Status",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DiscoZirconia z = new DiscoZirconia(0, cmbNombre.Text, cmbTipo.Text, tamaño, cmbColor.Text, cantidad, 3);
             inventario.AgregarZirconia(z);
 
             MessageBox.Show("Producto agregado exitosamente", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);

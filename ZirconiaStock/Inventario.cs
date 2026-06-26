@@ -54,7 +54,17 @@ namespace ZirconiaStock
                 ("$stock_minimo", z.StockMinimo)
                 );
         }
-   
+
+
+        public void EditarZirconia(DiscoZirconia z)
+        {
+            string query = "UPDATE zirconia SET nombre=$nombre, tipo=$tipo, tamaño=$tamaño, " +
+                           "color=$color, cantidad=$cantidad, stock_minimo=$stock_minimo WHERE id=$id";
+            conn.ExecuteNonQuery(query,
+                ("$nombre", z.Nombre), ("$tipo", z.Tipo), ("$tamaño", z.Tamaño),
+                ("$color", z.Color), ("$cantidad", z.Cantidad),
+                ("$stock_minimo", z.StockMinimo), ("$id", z.Id));
+        }
     }
 
 }
