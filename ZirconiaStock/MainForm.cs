@@ -19,17 +19,41 @@ namespace ZirconiaStock
             InitializeComponent();
 
             inventario = new Inventario();
-           //dgvZirconia.DataSource = inventario.ObtenerZirconia();
-           //dgvZirconia.Columns["StockMinimo"].Visible = false;
-           //dgvZirconia.Columns["Id"].DisplayIndex = 0;
-           //dgvZirconia.Columns["Nombre"].DisplayIndex = 1;
+            //dgvZirconia.DataSource = inventario.ObtenerZirconia();
+            //dgvZirconia.Columns["StockMinimo"].Visible = false;
+            //dgvZirconia.Columns["Id"].DisplayIndex = 0;
+            //dgvZirconia.Columns["Nombre"].DisplayIndex = 1;
+
+            CargarFiltro();
             RefrescarTabla();
+         
         }
+        
+
+        /*
         private void RefrescarTabla()
         {
             List<DiscoZirconia> lista = inventario.ObtenerZirconia().OrderByDescending(z => z.Cantidad).ToList();
                     
            
+            dgvZirconia.DataSource = null;
+            dgvZirconia.DataSource = lista;
+            dgvZirconia.Columns["StockMinimo"].Visible = false;
+            dgvZirconia.Columns["Id"].DisplayIndex = 0;
+            dgvZirconia.Columns["Nombre"].DisplayIndex = 1;
+        }
+        */
+
+        private void RefrescarTabla()
+        {
+            List<DiscoZirconia> lista = inventario.BuscarZirconia(txtBuscar.Text).OrderByDescending(z => z.Cantidad).ToList();
+
+            if (cmbFiltro.SelectedIndex > 0)
+            {
+                string tipo = cmbFiltro.SelectedItem.ToString();
+                lista = lista.Where(z => z.Tipo == tipo).ToList();
+            }
+
             dgvZirconia.DataSource = null;
             dgvZirconia.DataSource = lista;
             dgvZirconia.Columns["StockMinimo"].Visible = false;
@@ -105,6 +129,25 @@ namespace ZirconiaStock
             inventario.EditarZirconia(z);
             RefrescarTabla();
             SeleccionarPorId(id);
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            RefrescarTabla();
+        }
+
+        private void CargarFiltro()
+        {
+            cmbFiltro.Items.Clear();
+            cmbFiltro.Items.Add("Todos los tipos");
+            foreach (string t in inventario.ObtenerZirconia().Select(z => z.Tipo).Distinct())
+                cmbFiltro.Items.Add(t);
+            cmbFiltro.SelectedIndex = 0;   // empieza mostrando todos
+        }
+
+        private void cmbFiltro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefrescarTabla();
         }
     }
 }

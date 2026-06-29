@@ -41,7 +41,23 @@ namespace ZirconiaStock
             }
             return discoZirconias;
         }
-         
+
+        public List<DiscoZirconia> BuscarZirconia(string texto)
+        {
+            List<DiscoZirconia> lista = new List<DiscoZirconia>();
+            string query = "SELECT id, nombre, tipo, tamaño, color, cantidad, stock_minimo FROM zirconia " +
+                           "WHERE nombre LIKE $t OR tipo LIKE $t OR color LIKE $t OR CAST(tamaño AS TEXT) LIKE $t";
+            var rs = conn.ExecuteReader(query, ("$t", "%" + texto + "%"));
+            while (rs.Read())
+            {
+                lista.Add(new DiscoZirconia(
+                    rs.GetInt("id"), rs.GetString("nombre"), rs.GetString("tipo"),
+                    rs.GetInt("tamaño"), rs.GetString("color"),
+                    rs.GetInt("cantidad"), rs.GetInt("stock_minimo")));
+            }
+            return lista;
+        }
+
         public void AgregarZirconia(DiscoZirconia z)
         {
             string query = "INSERT INTO zirconia (nombre, tipo, tamaño, color, cantidad, stock_minimo) VALUES ($nombre, $tipo, $tamaño, $color, $cantidad, $stock_minimo)";
