@@ -81,6 +81,51 @@ namespace ZirconiaStock
                 ("$color", z.Color), ("$cantidad", z.Cantidad),
                 ("$stock_minimo", z.StockMinimo), ("$id", z.Id));
         }
+
+        public void EliminarZirconia(int id)
+        {
+            conn.ExecuteNonQuery("DELETE FROM zirconia WHERE id=$id", ("$id", id));
+        }
+
+        public void RegistrarHistorial(string producto, string accion, int antes, int despues)
+        {
+            string query = "INSERT INTO historial (producto, accion, cantidad_anterior, cantidad_nueva, fecha) VALUES ($producto, $accion, $antes, $despues, $fecha)";
+
+            conn.ExecuteNonQuery(query,
+                ("$producto", producto),
+                ("$accion", accion),
+                ("$antes", antes),
+                ("$despues", despues),
+                ("$fecha", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
+        }
+        public List<Historial> ObtenerHistorial()
+        {
+            List<Historial> lista = new List<Historial>();
+            string query = "SELECT id, producto, accion, cantidad_anterior, cantidad_nueva, fecha FROM historial ORDER BY id DESC";
+            var rs = conn.ExecuteReader(query);
+            while (rs.Read())
+            {
+                lista.Add(new Historial(
+                    rs.GetInt("id"),
+                    rs.GetString("producto"),
+                    rs.GetString("accion"),
+                    rs.GetInt("cantidad_anterior"),
+                    rs.GetInt("cantidad_nueva"),
+                    rs.GetString("fecha")));
+            }
+            return lista;
+        }
+        public string ObtenerMasUsado()
+        {
+            string query = "SELECT producto, COUNT(*) AS veces FROM historial WHERE accion = 'Disminuir' GROUP BY producto ORDER BY veces DESC LIMIT 1";
+                          
+            var rs = conn.ExecuteReader(query);
+            if (rs.Read())
+                return rs.GetString("producto") + " (" + rs.GetInt("veces") + " veces)";
+            return "Sin datos aún";
+        }
+
+
     }
 
 }

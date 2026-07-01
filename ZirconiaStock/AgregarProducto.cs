@@ -22,6 +22,7 @@ namespace ZirconiaStock
 
             nudCantidad.Minimum = 0;
             nudCantidad.Maximum = 100;
+            btnEliminar.Visible = false;
         }
         public AgregarProducto(Inventario inv, DiscoZirconia z) : this(inv)
         {
@@ -32,6 +33,7 @@ namespace ZirconiaStock
             cmbTamaño.Text = z.Tamaño.ToString();
             cmbColor.Text = z.Color;
             nudCantidad.Value = z.Cantidad;
+            btnEliminar.Visible = true;
         }
 
         private void CargarOpciones()
@@ -129,6 +131,25 @@ namespace ZirconiaStock
 
             if (respuesta == DialogResult.Yes)
             {
+                this.Close();
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (discoEditar == null) return;
+
+            DialogResult r = MessageBox.Show(
+                "¿Seguro que quieres eliminar este producto?",
+                "Confirmar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (r == DialogResult.Yes)
+            {
+                inventario.EliminarZirconia(discoEditar.Id);
+                MessageBox.Show("Producto eliminado", "Status",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
         }
