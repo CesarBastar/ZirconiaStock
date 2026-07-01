@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvZirconia = new System.Windows.Forms.DataGridView();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,31 +57,31 @@
             // dgvZirconia
             // 
             this.dgvZirconia.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(235)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvZirconia.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(235)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvZirconia.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvZirconia.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvZirconia.BackgroundColor = System.Drawing.SystemColors.ActiveBorder;
             this.dgvZirconia.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvZirconia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.NullValue = null;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(235)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvZirconia.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(235)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvZirconia.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvZirconia.Location = new System.Drawing.Point(0, 87);
-            this.dgvZirconia.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvZirconia.Margin = new System.Windows.Forms.Padding(4);
             this.dgvZirconia.Name = "dgvZirconia";
             this.dgvZirconia.ReadOnly = true;
             this.dgvZirconia.RowHeadersVisible = false;
             this.dgvZirconia.RowHeadersWidth = 51;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.dgvZirconia.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            this.dgvZirconia.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvZirconia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvZirconia.Size = new System.Drawing.Size(1613, 624);
             this.dgvZirconia.TabIndex = 0;
@@ -90,7 +90,7 @@
             // txtBuscar
             // 
             this.txtBuscar.Location = new System.Drawing.Point(183, 33);
-            this.txtBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(864, 22);
             this.txtBuscar.TabIndex = 1;
@@ -116,7 +116,7 @@
             this.btnAumentar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAumentar.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.btnAumentar.Location = new System.Drawing.Point(1201, 55);
-            this.btnAumentar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAumentar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAumentar.Name = "btnAumentar";
             this.btnAumentar.Size = new System.Drawing.Size(177, 42);
             this.btnAumentar.TabIndex = 4;
@@ -131,7 +131,7 @@
             this.btnDisminuir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDisminuir.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.btnDisminuir.Location = new System.Drawing.Point(1396, 54);
-            this.btnDisminuir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDisminuir.Margin = new System.Windows.Forms.Padding(4);
             this.btnDisminuir.Name = "btnDisminuir";
             this.btnDisminuir.Size = new System.Drawing.Size(177, 42);
             this.btnDisminuir.TabIndex = 5;
@@ -158,12 +158,13 @@
             this.btnEditarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditarProducto.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.btnEditarProducto.Location = new System.Drawing.Point(33, 55);
-            this.btnEditarProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEditarProducto.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditarProducto.Name = "btnEditarProducto";
             this.btnEditarProducto.Size = new System.Drawing.Size(249, 42);
             this.btnEditarProducto.TabIndex = 8;
             this.btnEditarProducto.Text = "✏️ Editar producto";
             this.btnEditarProducto.UseVisualStyleBackColor = false;
+            this.btnEditarProducto.Click += new System.EventHandler(this.btnEditarProducto_Click);
             // 
             // label4
             // 
@@ -181,7 +182,7 @@
             // 
             this.cmbFiltro.FormattingEnabled = true;
             this.cmbFiltro.Location = new System.Drawing.Point(1364, 32);
-            this.cmbFiltro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbFiltro.Margin = new System.Windows.Forms.Padding(4);
             this.cmbFiltro.Name = "cmbFiltro";
             this.cmbFiltro.Size = new System.Drawing.Size(217, 24);
             this.cmbFiltro.TabIndex = 10;
@@ -208,9 +209,9 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.dgvZirconia);
             this.groupBox1.Location = new System.Drawing.Point(4, 92);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(1613, 719);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
@@ -225,7 +226,7 @@
             this.panel1.Controls.Add(this.btnAgregar);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(3, 15);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1621, 960);
             this.panel1.TabIndex = 13;
@@ -274,7 +275,7 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.btnAumentar);
             this.panel2.Location = new System.Drawing.Point(13, 828);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1595, 123);
             this.panel2.TabIndex = 15;
@@ -286,7 +287,7 @@
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.btnAgregar.Location = new System.Drawing.Point(1368, 27);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(219, 42);
             this.btnAgregar.TabIndex = 14;
@@ -300,7 +301,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1637, 1002);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dgvZirconia)).EndInit();

@@ -13,6 +13,7 @@ namespace ZirconiaStock
     public partial class AgregarProducto : Form
     {
         private Inventario inventario;
+        private DiscoZirconia discoEditar = null;
         public AgregarProducto(Inventario inv)
         {
             InitializeComponent();
@@ -21,6 +22,16 @@ namespace ZirconiaStock
 
             nudCantidad.Minimum = 0;
             nudCantidad.Maximum = 100;
+        }
+        public AgregarProducto(Inventario inv, DiscoZirconia z) : this(inv)
+        {
+            discoEditar = z;
+            this.Text = "Editar Producto";
+            cmbNombre.Text = z.Nombre;
+            cmbTipo.Text = z.Tipo;
+            cmbTamaño.Text = z.Tamaño.ToString();
+            cmbColor.Text = z.Color;
+            nudCantidad.Value = z.Cantidad;
         }
 
         private void CargarOpciones()
@@ -71,24 +82,39 @@ namespace ZirconiaStock
             }
 
             int cantidad = (int)nudCantidad.Value;
-
-            bool existe = inventario.ObtenerZirconia().Any( d =>
-                  d.Nombre == cmbNombre.Text &&
-                  d.Tipo == cmbTipo.Text &&
-                  d.Tamaño == tamaño &&
-                  d.Color == cmbColor.Text);
-
-            if (existe)
+            if (discoEditar == null)
             {
-                MessageBox.Show("Ya existe un producto igual.", "Status",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+                // Modo AGREGAR: revisa duplicado y guarda nuevo
+                bool existe = inventario.ObtenerZirconia().Any(d =>
+                    d.Nombre == cmbNombre.Text && d.Tipo == cmbTipo.Text &&
+                    d.Tamaño == tamaño && d.Color == cmbColor.Text);
+
+                if (existe)
+                {
+                    MessageBox.Show("Ya existe un producto igual.", "Status",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+
+                DiscoZirconia z = new DiscoZirconia(0, cmbNombre.Text, cmbTipo.Text,
+                    tamaño, cmbColor.Text, cantidad, 3);
+                inventario.AgregarZirconia(z);
+                MessageBox.Show("Producto agregado exitosamente", "Status",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // Modo EDITAR: actualiza el disco seleccionado
+                discoEditar.Nombre = cmbNombre.Text;
+                discoEditar.Tipo = cmbTipo.Text;
+                discoEditar.Tamaño = tamaño;
+                discoEditar.Color = cmbColor.Text;
+                discoEditar.Cantidad = cantidad;
+                inventario.EditarZirconia(discoEditar);
+                MessageBox.Show("Producto editado exitosamente", "Status",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            DiscoZirconia z = new DiscoZirconia(0, cmbNombre.Text, cmbTipo.Text, tamaño, cmbColor.Text, cantidad, 3);
-            inventario.AgregarZirconia(z);
-
-            MessageBox.Show("Producto agregado exitosamente", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

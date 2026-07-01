@@ -149,5 +149,17 @@ namespace ZirconiaStock
         {
             RefrescarTabla();
         }
+
+        private void btnEditarProducto_Click(object sender, EventArgs e)
+        {
+         
+            DiscoZirconia z = DiscoSeleccionado();
+            if (z == null) { MessageBox.Show("Selecciona un disco de la tabla."); return; }
+
+            AgregarProducto f = new AgregarProducto(inventario, z);   // abre en modo editar
+            f.ShowDialog();
+            RefrescarTabla();
+        
+        }
     }
 }
