@@ -125,6 +125,44 @@ namespace ZirconiaStock
             return "Sin datos aún";
         }
 
+        // Metodos implementados por el UNION ALL de la tabla de resinas
+
+        public List<ProductoVista> ObtenerTodo()
+        {
+            List<ProductoVista> lista = new List<ProductoVista>();
+
+            string query =
+                "SELECT id, 'Zirconia' AS categoria, nombre, tipo, tamaño, color, cantidad, stock_minimo FROM zirconia  UNION ALL SELECT id, 'Resina', nombre, 'Resina', 0, '-', cantidad, stock_minimo FROM resinas"; 
+             
+               
+
+            var rs = conn.ExecuteReader(query);
+            while (rs.Read())
+            {
+                lista.Add(new ProductoVista
+                {
+                    Id = rs.GetInt("id"),
+                    Categoria = rs.GetString("categoria"),
+                    Nombre = rs.GetString("nombre"),
+                    Tipo = rs.GetString("tipo"),
+                    Tamaño = rs.GetInt("tamaño"),
+                    Color = rs.GetString("color"),
+                    Cantidad = rs.GetInt("cantidad"),
+                    StockMinimo = rs.GetInt("stock_minimo")
+                });
+            }
+            return lista;
+        }
+
+        public void ActualizarCantidadZirconia(int id, int cantidad)
+        {
+            conn.ExecuteNonQuery("UPDATE zirconia SET cantidad=$c WHERE id=$id", ("$c", cantidad), ("$id", id));
+        }
+
+        public void ActualizarCantidadResina(int id, int cantidad)
+        {
+            conn.ExecuteNonQuery("UPDATE resinas SET cantidad=$c WHERE id=$id", ("$c", cantidad), ("$id", id));
+        }
 
     }
 

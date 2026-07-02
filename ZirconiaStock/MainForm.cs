@@ -47,6 +47,7 @@ namespace ZirconiaStock
         }
         */
 
+        /*
         private void RefrescarTabla()
         {
             List<DiscoZirconia> lista = inventario.BuscarZirconia(txtBuscar.Text).OrderByDescending(z => z.Cantidad).ToList();
@@ -68,13 +69,48 @@ namespace ZirconiaStock
             dgvZirconia.Columns["Nombre"].DisplayIndex = 1;
             lblMasUsado.Text = "Producto más usado: " + inventario.ObtenerMasUsado();
         }
+        */
 
-        private DiscoZirconia DiscoSeleccionado()
+        private void RefrescarTabla()
         {
-            if (dgvZirconia.CurrentRow == null) return null;
-            return dgvZirconia.CurrentRow.DataBoundItem as DiscoZirconia;
+            List<ProductoVista> lista = inventario.ObtenerTodo();
+
+            // Buscar
+            string texto = txtBuscar.Text.ToLower();
+            if (texto != "")
+                lista = lista.Where(p =>
+                    p.Nombre.ToLower().Contains(texto) ||
+                    p.Tipo.ToLower().Contains(texto) ||
+                    p.Color.ToLower().Contains(texto) ||
+                    p.Tamaño.ToString().Contains(texto)).ToList();
+
+            // Filtro
+            string opcion = cmbFiltro.SelectedItem.ToString();
+            if (opcion == "Stock bajo")
+                lista = lista.Where(p => p.StockBajo).ToList();
+            else if (opcion != "Todos los tipos")
+                lista = lista.Where(p => p.Tipo == opcion).ToList();
+
+            // Orden
+            lista = lista.OrderByDescending(p => p.Cantidad).ToList();
+
+            dgvZirconia.DataSource = null;
+            dgvZirconia.DataSource = lista;
+            dgvZirconia.Columns["StockMinimo"].Visible = false;
+            dgvZirconia.Columns["Id"].DisplayIndex = 0;
+            dgvZirconia.Columns["Categoria"].DisplayIndex = 1;
+            dgvZirconia.Columns["Nombre"].DisplayIndex = 2;
+
+            lblMasUsado.Text = "Producto más usado: " + inventario.ObtenerMasUsado();
         }
 
+        /*
+        private DiscoZirconia DiscoSeleccionado()
+        {
+            if (dgvZirconia.CurrentRow == null) return null;                        // Ya no lo usare 
+            return dgvZirconia.CurrentRow.DataBoundItem as DiscoZirconia;
+        }
+        */
 
         /*
         private void SeleccionarPorId(int id)
@@ -87,6 +123,8 @@ namespace ZirconiaStock
         }
         */
 
+
+        /*
         private void SeleccionarPorId(int id)
         {
             foreach (DataGridViewRow fila in dgvZirconia.Rows)
@@ -100,6 +138,27 @@ namespace ZirconiaStock
                     break;
                 }
             }
+        }
+        */
+
+        private void SeleccionarPorId(int id, string categoria)
+        {
+            foreach (DataGridViewRow fila in dgvZirconia.Rows)
+            {
+                ProductoVista p = fila.DataBoundItem as ProductoVista;
+                if (p != null && p.Id == id && p.Categoria == categoria)
+                {
+                    dgvZirconia.ClearSelection();
+                    dgvZirconia.CurrentCell = fila.Cells["Nombre"];
+                    fila.Selected = true;
+                    break;
+                }
+            }
+        }
+        private ProductoVista ProductoSeleccionado()
+        {
+            if (dgvZirconia.CurrentRow == null) return null;
+            return dgvZirconia.CurrentRow.DataBoundItem as ProductoVista;
         }
 
         private void dgvZirconia_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -130,36 +189,34 @@ namespace ZirconiaStock
         */
         private void btnAumentar_Click(object sender, EventArgs e)
         {
-            DiscoZirconia z = DiscoSeleccionado();
-            if (z == null) { MessageBox.Show("Selecciona un disco de la tabla."); return; }
+            ProductoVista p = ProductoSeleccionado();
+            if (p == null) { MessageBox.Show("Selecciona un producto."); return; }
 
-            int id = z.Id;
-            int antes = z.Cantidad;
-            z.Cantidad = z.Cantidad + 1;
-            inventario.EditarZirconia(z);
+            int antes = p.Cantidad;
+            int nueva = p.Cantidad + 1;
 
-            string nombre = z.Nombre + " " + z.Tipo + " " + z.Tamaño + "mm " + z.Color;
-            inventario.RegistrarHistorial(nombre, "Aumentar", antes, z.Cantidad);
+            if (p.Categoria == "Zirconia") inventario.ActualizarCantidadZirconia(p.Id, nueva);
+            else inventario.ActualizarCantidadResina(p.Id, nueva);
 
+            inventario.RegistrarHistorial(p.Nombre + " (" + p.Categoria + ")", "Aumentar", antes, nueva);
             RefrescarTabla();
-            SeleccionarPorId(id);
+            SeleccionarPorId(p.Id, p.Categoria);
         }
 
         private void btnDisminuir_Click(object sender, EventArgs e)
         {
-            DiscoZirconia z = DiscoSeleccionado();
-            if (z == null) { MessageBox.Show("Selecciona un disco de la tabla."); return; }
+            ProductoVista p = ProductoSeleccionado();
+            if (p == null) { MessageBox.Show("Selecciona un producto."); return; }
 
-            int id = z.Id;
-            int antes = z.Cantidad;                        //  guarda la cantidad actual
-            if (z.Cantidad > 0) z.Cantidad = z.Cantidad - 1;  //  resta una sola vez
-            inventario.EditarZirconia(z);                  //guarda en la base
+            int antes = p.Cantidad;
+            int nueva = p.Cantidad > 0 ? p.Cantidad - 1 : 0;
 
-            string nombre = z.Nombre + " " + z.Tipo + " " + z.Tamaño + "mm " + z.Color;
-            inventario.RegistrarHistorial(nombre, "Disminuir", antes, z.Cantidad);  // 4) registra
+            if (p.Categoria == "Zirconia") inventario.ActualizarCantidadZirconia(p.Id, nueva);
+            else inventario.ActualizarCantidadResina(p.Id, nueva);
 
+            inventario.RegistrarHistorial(p.Nombre + " (" + p.Categoria + ")", "Disminuir", antes, nueva);
             RefrescarTabla();
-            SeleccionarPorId(id);
+            SeleccionarPorId(p.Id, p.Categoria);
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -167,6 +224,7 @@ namespace ZirconiaStock
             RefrescarTabla();
         }
 
+        /*
         private void CargarFiltro()
         {
             cmbFiltro.Items.Clear();
@@ -176,6 +234,17 @@ namespace ZirconiaStock
                 cmbFiltro.Items.Add(t);
             cmbFiltro.SelectedIndex = 0;   // empieza mostrando todos
         }
+        */
+
+        private void CargarFiltro()
+        {
+            cmbFiltro.Items.Clear();
+            cmbFiltro.Items.Add("Todos los tipos");
+            cmbFiltro.Items.Add("Stock bajo");
+            foreach (string t in inventario.ObtenerTodo().Select(p => p.Tipo).Distinct())
+                cmbFiltro.Items.Add(t);
+            cmbFiltro.SelectedIndex = 0;
+        }
 
         private void cmbFiltro_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -184,14 +253,21 @@ namespace ZirconiaStock
 
         private void btnEditarProducto_Click(object sender, EventArgs e)
         {
+            ProductoVista p = ProductoSeleccionado();
+            if (p == null) { MessageBox.Show("Selecciona un producto."); return; }
 
-            DiscoZirconia z = DiscoSeleccionado();
-            if (z == null) { MessageBox.Show("Selecciona un disco de la tabla."); return; }
-
-            AgregarProducto f = new AgregarProducto(inventario, z);   // abre en modo editar
-            f.ShowDialog();
-            RefrescarTabla();
-
+            if (p.Categoria == "Zirconia")
+            {
+                DiscoZirconia z = inventario.ObtenerZirconia().FirstOrDefault(d => d.Id == p.Id);
+                if (z == null) return;
+                AgregarProducto f = new AgregarProducto(inventario, z);
+                f.ShowDialog();
+                RefrescarTabla();
+            }
+            else
+            {
+                MessageBox.Show("Para editar o eliminar resinas, usa el botón Resinas.");
+            }
         }
 
         private void btnHistorial_Click(object sender, EventArgs e)
@@ -270,18 +346,21 @@ namespace ZirconiaStock
                     
                     foreach (DataGridViewRow filaGrid in dgvZirconia.Rows)
                     {
-                        DiscoZirconia z = filaGrid.DataBoundItem as DiscoZirconia;
-                        if (z == null) continue;
+                        //  DiscoZirconia z = filaGrid.DataBoundItem as DiscoZirconia;
+                        //   if (z == null) continue;
 
-                            hoja.Cell(fila, 1).Value = z.Id;
-                        hoja.Cell(fila, 2).Value = z.Nombre;
-                        hoja.Cell(fila, 3).Value = z.Tipo;
-                        hoja.Cell(fila, 4).Value = z.Tamaño;
-                        hoja.Cell(fila, 5).Value = z.Color;
-                        hoja.Cell(fila, 6).Value = z.Cantidad;
+                        ProductoVista p = filaGrid.DataBoundItem as ProductoVista;
+                        if (p == null) continue;
+
+                        hoja.Cell(fila, 1).Value = p.Id;
+                        hoja.Cell(fila, 2).Value = p.Nombre;
+                        hoja.Cell(fila, 3).Value = p.Tipo;
+                        hoja.Cell(fila, 4).Value = p.Tamaño;
+                        hoja.Cell(fila, 5).Value = p.Color;
+                        hoja.Cell(fila, 6).Value = p.Cantidad;
 
                         // Si tiene stock bajo, la cantidad en rojo
-                        if (z.StockBajo)
+                        if (p.StockBajo)
                             hoja.Cell(fila, 6).Style.Font.FontColor = XLColor.Red;
 
                         fila++;
