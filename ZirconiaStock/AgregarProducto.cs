@@ -91,6 +91,10 @@ namespace ZirconiaStock
                     d.Nombre == cmbNombre.Text && d.Tipo == cmbTipo.Text &&
                     d.Tamaño == tamaño && d.Color == cmbColor.Text);
 
+
+                MessageBox.Show("Producto agregado exitosamente", "Status",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 if (existe)
                 {
                     MessageBox.Show("Ya existe un producto igual.", "Status",
@@ -100,19 +104,31 @@ namespace ZirconiaStock
 
                 DiscoZirconia z = new DiscoZirconia(0, cmbNombre.Text, cmbTipo.Text,
                     tamaño, cmbColor.Text, cantidad, 3);
+              
                 inventario.AgregarZirconia(z);
+
+                string nombreA = z.Nombre + " " + z.Tipo + " " + z.Tamaño + "mm " + z.Color;
+
+                inventario.RegistrarHistorial(nombreA, "Agregar", 0, z.Cantidad);
+
                 MessageBox.Show("Producto agregado exitosamente", "Status",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 // Modo EDITAR: actualiza el disco seleccionado
+                int cantidadAntes = discoEditar.Cantidad;
+
                 discoEditar.Nombre = cmbNombre.Text;
                 discoEditar.Tipo = cmbTipo.Text;
                 discoEditar.Tamaño = tamaño;
                 discoEditar.Color = cmbColor.Text;
                 discoEditar.Cantidad = cantidad;
                 inventario.EditarZirconia(discoEditar);
+
+                string nombreE = discoEditar.Nombre + " " + discoEditar.Tipo + " " + discoEditar.Tamaño + "mm " + discoEditar.Color;
+                inventario.RegistrarHistorial(nombreE, "Editar", cantidadAntes, discoEditar.Cantidad);
+
                 MessageBox.Show("Producto editado exitosamente", "Status",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -147,6 +163,9 @@ namespace ZirconiaStock
 
             if (r == DialogResult.Yes)
             {
+                string nombreX = discoEditar.Nombre + " " + discoEditar.Tipo + " " + discoEditar.Tamaño + "mm " + discoEditar.Color;
+                inventario.RegistrarHistorial(nombreX, "Eliminar", discoEditar.Cantidad, 0);
+
                 inventario.EliminarZirconia(discoEditar.Id);
                 MessageBox.Show("Producto eliminado", "Status",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);

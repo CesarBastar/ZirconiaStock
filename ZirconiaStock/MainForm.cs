@@ -51,10 +51,14 @@ namespace ZirconiaStock
         {
             List<DiscoZirconia> lista = inventario.BuscarZirconia(txtBuscar.Text).OrderByDescending(z => z.Cantidad).ToList();
 
-            if (cmbFiltro.SelectedIndex > 0)
+            string opcion = cmbFiltro.SelectedItem.ToString();
+            if (opcion == "Stock bajo")
             {
-                string tipo = cmbFiltro.SelectedItem.ToString();
-                lista = lista.Where(z => z.Tipo == tipo).ToList();
+                lista = lista.Where(z => z.StockBajo).ToList();
+            }
+            else if (opcion != "Todos los tipos")
+            {
+                lista = lista.Where(z => z.Tipo == opcion).ToList();
             }
 
             dgvZirconia.DataSource = null;
@@ -167,6 +171,7 @@ namespace ZirconiaStock
         {
             cmbFiltro.Items.Clear();
             cmbFiltro.Items.Add("Todos los tipos");
+            cmbFiltro.Items.Add("Stock bajo");
             foreach (string t in inventario.ObtenerZirconia().Select(z => z.Tipo).Distinct())
                 cmbFiltro.Items.Add(t);
             cmbFiltro.SelectedIndex = 0;   // empieza mostrando todos
@@ -261,9 +266,14 @@ namespace ZirconiaStock
 
                     // Datos (desde la fila 2)
                     int fila = 2;
-                    foreach (DiscoZirconia z in inventario.ObtenerZirconia().OrderBy(z => z.Cantidad))
+                  //  foreach (DiscoZirconia z in inventario.ObtenerZirconia().OrderBy(z => z.Cantidad))
+                    
+                    foreach (DataGridViewRow filaGrid in dgvZirconia.Rows)
                     {
-                        hoja.Cell(fila, 1).Value = z.Id;
+                        DiscoZirconia z = filaGrid.DataBoundItem as DiscoZirconia;
+                        if (z == null) continue;
+
+                            hoja.Cell(fila, 1).Value = z.Id;
                         hoja.Cell(fila, 2).Value = z.Nombre;
                         hoja.Cell(fila, 3).Value = z.Tipo;
                         hoja.Cell(fila, 4).Value = z.Tamaño;
