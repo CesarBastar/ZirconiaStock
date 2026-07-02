@@ -130,6 +130,12 @@
       <DependentUpon>AgregarProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="DiscoZirconia.cs" />
+    <Compile Include="EditarResinaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarResinaForm.Designer.cs">
+      <DependentUpon>EditarResinaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Historial.cs" />
     <Compile Include="HistorialForm.cs">
       <SubType>Form</SubType>
@@ -152,6 +158,9 @@
     <Compile Include="SqlConnectionExtensions.cs" />
     <EmbeddedResource Include="AgregarProducto.resx">
       <DependentUpon>AgregarProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditarResinaForm.resx">
+      <DependentUpon>EditarResinaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HistorialForm.resx">
       <DependentUpon>HistorialForm.cs</DependentUpon>

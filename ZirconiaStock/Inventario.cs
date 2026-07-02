@@ -39,6 +39,7 @@ namespace ZirconiaStock
 
                     ));
             }
+            rs.Close();
             return discoZirconias;
         }
 
@@ -163,7 +164,43 @@ namespace ZirconiaStock
         {
             conn.ExecuteNonQuery("UPDATE resinas SET cantidad=$c WHERE id=$id", ("$c", cantidad), ("$id", id));
         }
+        public List<Resina> ObtenerResinas()
+        {
+            List<Resina> lista = new List<Resina>();
+            string query = "SELECT id, nombre, cantidad, stock_minimo FROM resinas";
+            var rs = conn.ExecuteReader(query);
+            while (rs.Read())
+            {
+                lista.Add(new Resina(
+                    rs.GetInt("id"),
+                    rs.GetString("nombre"),
+                    rs.GetInt("cantidad"),
+                    rs.GetInt("stock_minimo")));
+            }
 
+            rs.Close();
+            return lista;
+        }
+
+        public void AgregarResina(Resina r)
+        {
+            string query = "INSERT INTO resinas (nombre, cantidad, stock_minimo) VALUES ($nombre, $cantidad, $stock_minimo)";
+            conn.ExecuteNonQuery(query,
+                ("$nombre", r.Nombre), ("$cantidad", r.Cantidad), ("$stock_minimo", r.StockMinimo));
+        }
+
+        public void EditarResina(Resina r)
+        {
+            string query = "UPDATE resinas SET nombre=$nombre, cantidad=$cantidad, stock_minimo=$stock_minimo WHERE id=$id";
+            conn.ExecuteNonQuery(query,
+                ("$nombre", r.Nombre), ("$cantidad", r.Cantidad),
+                ("$stock_minimo", r.StockMinimo), ("$id", r.Id));
+        }
+
+        public void EliminarResina(int id)
+        {
+            conn.ExecuteNonQuery("DELETE FROM resinas WHERE id=$id", ("$id", id));
+        }
     }
 
 }

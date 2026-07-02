@@ -266,7 +266,13 @@ namespace ZirconiaStock
             }
             else
             {
-                MessageBox.Show("Para editar o eliminar resinas, usa el botón Resinas.");
+                {
+                    Resina r = inventario.ObtenerResinas().FirstOrDefault(x => x.Id == p.Id);
+                    if (r == null) return;
+                    EditarResinaForm f = new EditarResinaForm(inventario, r);
+                    f.ShowDialog();
+                    RefrescarTabla();
+                }
             }
         }
 
